@@ -1,0 +1,62 @@
+name: deploy-rvc
+
+on:
+  push:
+    branches: main
+    paths:
+      - ".github/workflows/deploy.yaml"
+      - "Makefile"
+      - "cmd/**"
+      - "go.mod"
+      - "go.sum"
+      - "pkg/**"
+      - "serverless.yaml"
+      - "vendor/**"
+
+jobs:
+  deploy:
+    name: deploy-rvc
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create draft release
+        id: create_release
+        uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish release
+        run: |
+          curl -X PATCH \
+          -H 'Accept: application/vnd.github.v3+json' \
+          -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --url https://api.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }} \
+          -d '{"draft":false}' \
+          --fail
+      - name: Setup golang
+        uses: actions/setup-go@v2
+        with:
+          go-version: "1.17"
+      - name: Build
+        run: |
+          git fetch --tags # Fetch tags before building
+          make
+      - name: Upload binaries
+        run: |
+          curl -X POST \
+            -H 'Accept: application/vnd.github.v3+json' \
+            -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            -H 'Content-Type: application/octet-stream' \
+            --url https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }}/assets?name=rvc \
+            --data-binary @bin/rvc \
+            --fail
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+      - name: Install serverless and deploy
+        run: |
+          npm install -g serverless
+          serverless plugin install -n serverless-domain-manager
+          serverless deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.SERVERLESS_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.SERVERLESS_AWS_SECRET_ACCESS_KEY }}
