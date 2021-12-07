@@ -6,21 +6,21 @@ provider:
   name: aws
   runtime: go1.x
   lambdaHashingVersion: 20201221
-#  region: us-east-2
-#  logRetentionInDays: 30
-#  memorySize: 1024
-#  deploymentBucket:
-#    name: rapids-serverless-deployments
-#
-#plugins:
-#  - serverless-domain-manager
-#
-#custom:
-#  customDomain:
-#    domainName: 'version.gpuci.io'
-#    basePath: ''
-#    stage: ${self:provider.stage}
-#    createRoute53Record: true
+  region: us-east-2
+  logRetentionInDays: 30
+  memorySize: 1024
+  deploymentBucket:
+    name: rapids-serverless-deployments
+
+plugins:
+  - serverless-domain-manager
+custom:
+  customDomain:
+    autoDomain: true
+    certificateName: '*.gpuci.io'
+    createRoute53Record: true
+    domainName: 'version.gpuci.io'
+    endpointType: regional
 
 package:
   exclude:
