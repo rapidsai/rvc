@@ -82,7 +82,7 @@ func parseRapidsVersion(version string) (string, error) {
 	}
 
 	if len(split) > 2 {
-		_, err := strconv.Atoi(split[0])
+		_, err := strconv.Atoi(split[2])
 		if err != nil {
 			return "", fmt.Errorf("Non numerical patch value \"%v\" for RAPIDS version \"%v\"", split[2], version)
 		}
@@ -121,7 +121,7 @@ func parseUcxPyVersion(version string) (string, error) {
 	}
 
 	if len(split) > 2 {
-		_, err := strconv.Atoi(split[0])
+		_, err := strconv.Atoi(split[2])
 		if err != nil {
 			return "", fmt.Errorf("Non numerical patch value \"%v\" for ucx-py version \"%v\"", split[2], version)
 		}
