@@ -28,7 +28,7 @@ jobs:
             -H 'Accept: application/vnd.github.v3+json' \
             -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
             --url ${{ steps.create_release.outputs.upload_url }} \
-            -d @bin/rvc_cli \
+            -d @bin/rvc \
             --fail
       - name: Publish release
         run: |
