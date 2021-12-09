@@ -1,0 +1,51 @@
+service: gpuci-serverless-rvc
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: go1.x
+  lambdaHashingVersion: 20201221
+  region: us-east-2
+  logRetentionInDays: 30
+  memorySize: 1024
+  deploymentBucket:
+    name: rapids-serverless-deployments
+
+plugins:
+  - serverless-domain-manager
+custom:
+  customDomain:
+    autoDomain: true
+    certificateName: '*.gpuci.io'
+    createRoute53Record: true
+    domainName: 'version.gpuci.io'
+    endpointType: regional
+
+package:
+  exclude:
+    - ./**
+  include:
+    - ./bin/rvc_serverless
+
+functions:
+  rvc_rapids:
+    handler: bin/rvc_serverless
+    events:
+      - http:
+          path: /rapids/{version}
+          method: get
+          request:
+            parameters:
+              paths:
+                version: true
+  rvc_ucx_py:
+    handler: bin/rvc_serverless
+    events:
+      - http:
+          path: /ucx-py/{version}
+          method: get
+          request:
+            parameters:
+              paths:
+                version: true

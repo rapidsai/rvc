@@ -1,0 +1,16 @@
+name: PRs
+
+on: pull_request
+
+jobs:
+  golang_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: "1.17"
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run tests
+        run: make test
