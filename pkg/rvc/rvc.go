@@ -63,20 +63,12 @@ func parseRapidsVersion(version string) (string, error) {
 
 	split := strings.Split(version, ".")
 
-	year, err := strconv.Atoi(split[0])
-	if err != nil {
-		return "", fmt.Errorf("Non numerical year value \"%v\" for RAPIDS version \"%v\"", split[0], version)
-	}
-
+	year, _ := strconv.Atoi(split[0])
 	if year < 21 {
 		return "", fmt.Errorf("Year value \"%v\" must be greater than 21 for RAPIDS version \"%v\"", year, version)
 	}
 
-	month, err := strconv.Atoi(split[1])
-	if err != nil {
-		return "", fmt.Errorf("Non numerical month value \"%v\" for RAPIDS version \"%v\"", split[1], version)
-	}
-
+	month, _ := strconv.Atoi(split[1])
 	if month < 1 || month > 12 {
 		return "", fmt.Errorf("Month value \"%v\" must be between 1 and 12 for RAPIDS version \"%v\"", month, version)
 	}
@@ -96,20 +88,7 @@ func parseUcxPyVersion(version string) (string, error) {
 
 	split := strings.Split(version, ".")
 
-	major, err := strconv.Atoi(split[0])
-	if err != nil {
-		return "", fmt.Errorf("Non numerical major value \"%v\" for ucx-py version \"%v\"", split[0], version)
-	}
-
-	if major != 0 {
-		return "", fmt.Errorf("Major value \"%v\" must be equal to 0 for ucx-py version \"%v\"", major, version)
-	}
-
-	minor, err := strconv.Atoi(split[1])
-	if err != nil {
-		return "", fmt.Errorf("Non numerical minor value \"%v\" for ucx-py version \"%v\"", split[1], version)
-	}
-
+	minor, _ := strconv.Atoi(split[1])
 	if minor == 0 {
 		return "", fmt.Errorf("Minor value \"%v\" must not be 0 for ucx-py version \"%v\"", minor, version)
 	}
