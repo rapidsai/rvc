@@ -1,4 +1,4 @@
-service: rvc
+service: gpuci-serverless-rvc
 
 frameworkVersion: '2'
 
