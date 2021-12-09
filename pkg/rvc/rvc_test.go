@@ -17,7 +17,7 @@ func TestParseRapidsVersion(t *testing.T) {
 		require.Equal(t, v, expected)
 	}
 
-	invalidVersions := []string{"0.21", "v22.00", "v22.0", "22.0", "abc"}
+	invalidVersions := []string{"0.21", "v22.00", "v22.0", "22.0", "abc", "20.02"}
 
 	for _, version := range invalidVersions {
 		_, err := parseRapidsVersion(version)
@@ -36,7 +36,7 @@ func TestParseUcxPyVersion(t *testing.T) {
 		require.Equal(t, v, expected)
 	}
 
-	invalidVersions := []string{"22.02", "v22.02", "v1.01", "1.01", "12", "abc"}
+	invalidVersions := []string{"22.02", "v22.02", "v1.01", "1.01", "12", "abc", "0.0"}
 
 	for _, version := range invalidVersions {
 		_, err := parseUcxPyVersion(version)
@@ -60,7 +60,7 @@ func TestGetRapidsFromUcxPy(t *testing.T) {
 		require.Equal(t, v, expected)
 	}
 
-	invalidVersions := []string{"v321.02", "abc", "15", "1.15", "v1.24"}
+	invalidVersions := []string{"v321.02", "abc", "15", "1.15", "v1.24", "0.60"}
 
 	for _, version := range invalidVersions {
 		_, err := GetRapidsFromUcxPy(version)
@@ -84,7 +84,7 @@ func TestGetUcxPyFromRapids(t *testing.T) {
 		require.Equal(t, v, expected)
 	}
 
-	invalidVersions := []string{"v21.00", "abc", "15", "1.15", "v1.24"}
+	invalidVersions := []string{"v21.00", "abc", "15", "1.15", "v1.24", "40.02"}
 
 	for _, version := range invalidVersions {
 		_, err := GetUcxPyFromRapids(version)
