@@ -79,3 +79,24 @@ $ rvc -rapids 21.12
 $ rvc -ucx-py 0.22
 21.10
 ```
+
+## Contributing
+
+### Add a new version mapping
+
+If you need to add a new version mapping, you only need to update this
+[map](https://github.com/rapidsai/rvc/blob/main/pkg/rvc/rvc.go#L15).
+
+### Improving `rvc`
+
+Requirements:
+  - golang >= 1.17
+  - serverless
+
+A Makefile with some useful rules is provided:
+  - `make build`: Run unit tests and build CLI and Serverless binaries
+  - `make test`: Run unit tests
+  - `make build_cli`: Build CLI binary
+  - `make build_serverless`: Build Serverless binary
+  - `make fmt`: Format code
+  - `make coverage`: Compute and display tests coverage
