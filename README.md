@@ -19,8 +19,8 @@ GitHub Action for more details.
 `rvc` is deployed at this endpoint: https://version.gpuci.io
 
 Two different routes are exposed:
-  - https://version.gpuci.io/ucx-py/{version}: Converts a `RAPIDS` version to a `ucx-py` version
-  - https://version.gpuci.io/rapids/{version}: Converts a `ucx-py` version to a `RAPIDS` version
+  - https://version.gpuci.io/ucx-py/{version}: Converts a `ucx-py` version to a `RAPIDS` version
+  - https://version.gpuci.io/rapids/{version}: Converts a `RAPIDS` version to a `ucx-py` version
 
 ## CLI binary
 
