@@ -15,3 +15,9 @@ test:
 
 fmt:
 	gofmt -w ./pkg/... ./cmd/...
+
+coverage:
+	go test -coverprofile=coverage.out ./pkg/...
+	go tool cover -func=coverage.out
+	go tool cover -html=coverage.out
+	@rm coverage.out
