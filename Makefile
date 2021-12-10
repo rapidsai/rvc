@@ -10,7 +10,6 @@ build_serverless:
 	GOARCH=amd64 GOOS=linux go build -mod=vendor -ldflags=$(LDFLAGS) -o bin/rvc_serverless ./cmd/rvc_serverless/...
 
 build_cli:
-	echo $(VERSION)
 	@mkdir -p bin
 	GOARCH=amd64 GOOS=linux go build -mod=vendor -ldflags=$(LDFLAGS) -o bin/rvc ./cmd/rvc_cli/...
 

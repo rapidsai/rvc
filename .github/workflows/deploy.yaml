@@ -3,6 +3,15 @@ name: deploy-rvc
 on:
   push:
     branches: main
+    paths:
+      - ".github/workflows/deploy.yaml"
+      - "Makefile"
+      - "cmd/**"
+      - "go.mod"
+      - "go.sum"
+      - "pkg/**"
+      - "serverless.yaml"
+      - "vendor/**"
 
 jobs:
   deploy:
