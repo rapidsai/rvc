@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/rapidsai/rvc/pkg/rvc"
+	"github.com/rapidsai/rvc/pkg/version"
 )
 
 const (
@@ -15,6 +16,7 @@ const (
 type Args struct {
 	UcxPyVersion  string
 	RapidsVersion string
+	Version       bool
 }
 
 func initFlags(flagset *flag.FlagSet) *Args {
@@ -22,6 +24,7 @@ func initFlags(flagset *flag.FlagSet) *Args {
 
 	flagset.StringVar(&args.RapidsVersion, "rapids", "", "Rapids version")
 	flagset.StringVar(&args.UcxPyVersion, "ucx-py", "", "ucx-py version")
+	flagset.BoolVar(&args.Version, "version", false, "Display version and exit")
 
 	return args
 }
@@ -35,6 +38,11 @@ func main() {
 		fmt.Printf("Unknown command line argument \"%v\"\n", flags.Args()[0])
 		flags.Usage()
 		os.Exit(1)
+	}
+
+	if args.Version {
+		fmt.Println(ProgramName, version.Get())
+		os.Exit(0)
 	}
 
 	if len(args.RapidsVersion) < 1 && len(args.UcxPyVersion) < 1 {

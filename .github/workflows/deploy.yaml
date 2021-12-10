@@ -16,6 +16,14 @@ jobs:
         uses: release-drafter/release-drafter@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish release
+        run: |
+          curl -X PATCH \
+          -H 'Accept: application/vnd.github.v3+json' \
+          -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --url https://api.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }} \
+          -d '{"draft":false}' \
+          --fail
       - name: Setup golang
         uses: actions/setup-go@v2
         with:
@@ -31,14 +39,6 @@ jobs:
             --url https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }}/assets?name=rvc \
             --data-binary @bin/rvc \
             --fail
-      - name: Publish release
-        run: |
-          curl -X PATCH \
-          -H 'Accept: application/vnd.github.v3+json' \
-          -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --url https://api.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }} \
-          -d '{"draft":false}' \
-          --fail
       - name: Setup Node.js
         uses: actions/setup-node@v1
       - name: Install serverless and deploy
