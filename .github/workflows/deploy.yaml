@@ -27,7 +27,7 @@ jobs:
           curl -X POST \
             -H 'Accept: application/vnd.github.v3+json' \
             -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-            --url ${{ steps.create_release.outputs.upload_url }} \
+            --url https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }}/assets?name=rvc \
             -d @bin/rvc \
             --fail
       - name: Publish release
