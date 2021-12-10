@@ -33,12 +33,12 @@ Two different routes are exposed:
   - https://version.gpuci.io/rapids/{version}: Converts a `RAPIDS` version to a `ucx-py` version
 
 Examples:
-```
+```sh
 $ RAPIDS_VER=$(curl -sL https://version.gpuci.io/ucx-py/0.22)
 $ echo "${RAPIDS_VER}"
 21.10
 ```
-```
+```sh
 $ UCX_PY_VER=$(curl -sL https://version.gpuci.io/rapids/21.12)
 $ echo "${UCX_PY_VER}"
 0.23
@@ -52,7 +52,7 @@ $ echo "${UCX_PY_VER}"
 
 Download the latest binary from GitHub and add it to one of your `PATH` directories:
 
-```
+```sh
 wget https://github.com/rapidsai/rvc/releases/latest/download/rvc -O rvc
 chmod +x rvc
 sudo mv ./rvc /usr/local/bin
@@ -71,11 +71,11 @@ Usage of rvc:
 `-rapids` and `ucx-py` options are mutually exclusive.
 
 Examples:
-```
+```sh
 $ rvc -rapids 21.12
 0.23
 ```
-```
+```sh
 $ rvc -ucx-py 0.22
 21.10
 ```
