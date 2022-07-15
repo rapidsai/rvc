@@ -10,7 +10,7 @@ on:
       - "go.mod"
       - "go.sum"
       - "pkg/**"
-      - "serverless.yaml"
+      - "serverless.yml"
       - "vendor/**"
 
 jobs:
@@ -51,7 +51,9 @@ jobs:
             --data-binary @bin/rvc \
             --fail
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
       - name: Install serverless and deploy
         run: |
           npm install -g serverless
