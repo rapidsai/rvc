@@ -1,6 +1,6 @@
 service: gpuci-serverless-rvc
 
-frameworkVersion: '2'
+frameworkVersion: '3'
 
 provider:
   name: aws
