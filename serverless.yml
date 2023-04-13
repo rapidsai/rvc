@@ -1,4 +1,4 @@
-service: gpuci-serverless-rvc
+service: rvc
 
 frameworkVersion: '3'
 
@@ -10,7 +10,7 @@ provider:
   logRetentionInDays: 30
   memorySize: 1024
   deploymentBucket:
-    name: rapids-serverless-deployments
+    name: rapidsai-serverless-deployments
 
 plugins:
   - serverless-domain-manager
