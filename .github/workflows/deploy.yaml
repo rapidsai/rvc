@@ -66,6 +66,6 @@ jobs:
           node-version: lts/*
       - name: Install serverless and deploy
         run: |
-          npm install -g serverless
+          npm install -g serverless@3
           serverless plugin install -n serverless-domain-manager
           serverless deploy
