@@ -35,6 +35,12 @@ var versionMapping = map[string]string{
 	"24.08": "0.39",
 	"24.10": "0.40",
 	"24.12": "0.41",
+	"25.02": "0.42",
+	"25.04": "0.43",
+	"25.06": "0.44",
+	"25.08": "0.45",
+	"25.10": "0.46",
+	"25.12": "0.47",
 }
 
 func GetUcxPyFromRapids(version string) (string, error) {
