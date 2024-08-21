@@ -34,6 +34,10 @@ func GetRapidsFromUcxPy(version string) (string, error) {
 	distance := parsedVersion - ucxStart
 	year := int64((distance*2.0+rapidsStartMonth)/12) + rapidsStartYear
 	month := (distance*2 + rapidsStartMonth) % 12
+	if month == 0 {
+		year = year - 1
+		month = 12
+	}
 
 	return fmt.Sprintf("%d.%02d", year, month), nil
 }
