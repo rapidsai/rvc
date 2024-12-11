@@ -7,19 +7,10 @@ on:
     branches:
       - "pull-request/[0-9]+"
       - "main"
-    paths:
-      - ".github/workflows/ci.yaml"
-      - "Makefile"
-      - "cmd/**"
-      - "go.mod"
-      - "go.sum"
-      - "pkg/**"
-      - "terraform/**"
-      - "vendor/**"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   id-token: write
@@ -90,11 +81,8 @@ jobs:
         continue-on-error: true
         run: |
           terraform plan -out=tfplan
-          terraform show -no-color tfplan > plan.txt
-          PLAN_ENCODED=$(base64 -w 0 plan.txt)
-          echo "PLAN_ENCODED=$PLAN_ENCODED" >> $GITHUB_ENV
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         working-directory: terraform
         run: terraform apply tfplan
