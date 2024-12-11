@@ -1,9 +1,3 @@
-variable "environment" {
-  description = "Deployment environment"
-  type        = string
-  default     = "prod"
-}
-
 variable "domain_name" {
   description = "Custom domain name"
   type        = string

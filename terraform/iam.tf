@@ -1,5 +1,5 @@
 resource "aws_iam_role" "lambda_role" {
-  name = "rvc-${var.environment}-lambda-role"
+  name = "rvc-lambda-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -14,7 +14,7 @@ resource "aws_iam_role" "lambda_role" {
 }
 
 resource "aws_iam_role_policy" "lambda_policy" {
-  name = "rvc-${var.environment}-lambda-policy"
+  name = "rvc-lambda-policy"
   role = aws_iam_role.lambda_role.id
 
   policy = jsonencode({
@@ -34,7 +34,7 @@ resource "aws_iam_role_policy" "lambda_policy" {
 }
 
 resource "aws_iam_role" "api_gateway_executor" {
-  name = "rvc-${var.environment}-api-gateway"
+  name = "rvc-api-gateway"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -49,7 +49,7 @@ resource "aws_iam_role" "api_gateway_executor" {
 }
 
 resource "aws_iam_role_policy" "api_gateway_executor" {
-  name = "rvc-${var.environment}-api-gateway"
+  name = "rvc-api-gateway"
   role = aws_iam_role.api_gateway_executor.id
 
   policy = jsonencode({

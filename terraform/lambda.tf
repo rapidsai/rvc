@@ -1,6 +1,6 @@
 resource "aws_lambda_function" "rvc_rapids" {
   filename         = "../bin/rvc_serverless"
-  function_name    = "rvc-${var.environment}-rapids"
+  function_name    = "rvc-rapids"
   role            = aws_iam_role.lambda_role.arn
   handler         = "bin/rvc_serverless"
   source_code_hash = filebase64sha256("../bin/rvc_serverless")
@@ -9,7 +9,7 @@ resource "aws_lambda_function" "rvc_rapids" {
   timeout         = 30
 
   tags = {
-    Environment = var.environment
+    Environment = "prod"
     Service     = "rvc"
   }
 
@@ -20,7 +20,7 @@ resource "aws_lambda_function" "rvc_rapids" {
 
 resource "aws_lambda_function" "rvc_ucx_py" {
   filename         = "../bin/rvc_serverless"
-  function_name    = "rvc-${var.environment}-ucx-py"
+  function_name    = "rvc-ucx-py"
   role            = aws_iam_role.lambda_role.arn
   handler         = "bin/rvc_serverless"
   source_code_hash = filebase64sha256("../bin/rvc_serverless")
@@ -29,7 +29,7 @@ resource "aws_lambda_function" "rvc_ucx_py" {
   timeout         = 30
 
   tags = {
-    Environment = var.environment
+    Environment = "prod"
     Service     = "rvc"
   }
 

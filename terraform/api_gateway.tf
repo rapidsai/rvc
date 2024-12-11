@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "rvc" {
-  name = "rvc-${var.environment}"
+  name = "rvc"
 }
 
 # Rapids endpoint resources
@@ -99,7 +99,7 @@ resource "aws_api_gateway_deployment" "rvc" {
 resource "aws_api_gateway_stage" "rvc" {
   deployment_id = aws_api_gateway_deployment.rvc.id
   rest_api_id  = aws_api_gateway_rest_api.rvc.id
-  stage_name   = var.environment
+  stage_name   = "prod"
 }
 
 data "aws_acm_certificate" "domain_cert" {
