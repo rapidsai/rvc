@@ -1,5 +1,9 @@
 resource "aws_api_gateway_rest_api" "rvc" {
   name = "rvc"
+  
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
 }
 
 # Rapids endpoint resources
@@ -90,10 +94,16 @@ resource "aws_api_gateway_base_path_mapping" "rvc" {
 resource "aws_api_gateway_deployment" "rvc" {
   rest_api_id = aws_api_gateway_rest_api.rvc.id
   
-  depends_on = [
-    aws_api_gateway_integration.rapids_lambda,
-    aws_api_gateway_integration.ucx_py_lambda
-  ]
+  triggers = {
+    redeployment = sha1(jsonencode([
+      aws_api_gateway_resource.rapids.id,
+      aws_api_gateway_resource.ucx_py.id,
+      aws_api_gateway_method.rapids_get.id,
+      aws_api_gateway_method.ucx_py_get.id,
+      aws_api_gateway_integration.rapids_lambda.id,
+      aws_api_gateway_integration.ucx_py_lambda.id
+    ]))
+  }
 }
 
 resource "aws_api_gateway_stage" "rvc" {
