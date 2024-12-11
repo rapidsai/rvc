@@ -15,7 +15,6 @@ resource "aws_lambda_function" "rvc_rapids" {
 
   lifecycle {
     create_before_destroy = true
-    prevent_destroy       = true
   }
 }
 
@@ -36,7 +35,6 @@ resource "aws_lambda_function" "rvc_ucx_py" {
 
   lifecycle {
     create_before_destroy = true
-    prevent_destroy       = true
   }
 }
 
