@@ -83,7 +83,6 @@ jobs:
       - name: Terraform Plan
         id: plan
         working-directory: terraform
-        continue-on-error: true
         run: |
           terraform plan -out=tfplan
 
