@@ -81,7 +81,10 @@ resource "aws_api_gateway_integration" "ucx_py_lambda" {
 # Domain name and mapping
 resource "aws_api_gateway_domain_name" "rvc" {
   domain_name     = var.domain_name
-  certificate_arn = data.aws_acm_certificate.domain_cert.arn
+  regional_certificate_arn = data.aws_acm_certificate.domain_cert.arn
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
 }
 
 resource "aws_api_gateway_base_path_mapping" "rvc" {
@@ -124,8 +127,8 @@ resource "aws_route53_record" "domain" {
   zone_id = data.aws_route53_zone.domain.zone_id
 
   alias {
-    name                   = aws_api_gateway_domain_name.rvc.cloudfront_domain_name
-    zone_id                = aws_api_gateway_domain_name.rvc.cloudfront_zone_id
+    name                   = aws_api_gateway_domain_name.rvc.regional_domain_name
+    zone_id                = aws_api_gateway_domain_name.rvc.regional_zone_id
     evaluate_target_health = false
   }
 }

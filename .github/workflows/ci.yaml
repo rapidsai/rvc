@@ -47,6 +47,11 @@ jobs:
       - name: Build
         run: make
 
+      - name: Create zip for Lambda
+        working-directory: bin
+        run: |
+          zip rvc_serverless.zip bootstrap
+
       - name: Upload binaries
         if: github.ref == 'refs/heads/main'
         run: |
