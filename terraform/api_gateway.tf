@@ -1,6 +1,6 @@
 resource "aws_api_gateway_rest_api" "rvc" {
   name = "rvc"
-  
+
   endpoint_configuration {
     types = ["REGIONAL"]
   }
@@ -48,11 +48,11 @@ resource "aws_api_gateway_integration" "rapids_lambda" {
   rest_api_id = aws_api_gateway_rest_api.rvc.id
   resource_id = aws_api_gateway_resource.rapids_version.id
   http_method = aws_api_gateway_method.rapids_get.http_method
-  
+
   integration_http_method = "POST"
-  type                   = "AWS_PROXY"
-  uri                    = aws_lambda_function.rvc_rapids.invoke_arn
-  credentials            = aws_iam_role.api_gateway_executor.arn
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.rvc_rapids.invoke_arn
+  credentials             = aws_iam_role.api_gateway_executor.arn
 }
 
 # Method and integration for UCX-Py
@@ -71,16 +71,16 @@ resource "aws_api_gateway_integration" "ucx_py_lambda" {
   rest_api_id = aws_api_gateway_rest_api.rvc.id
   resource_id = aws_api_gateway_resource.ucx_py_version.id
   http_method = aws_api_gateway_method.ucx_py_get.http_method
-  
+
   integration_http_method = "POST"
-  type                   = "AWS_PROXY"
-  uri                    = aws_lambda_function.rvc_ucx_py.invoke_arn
-  credentials            = aws_iam_role.api_gateway_executor.arn
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.rvc_ucx_py.invoke_arn
+  credentials             = aws_iam_role.api_gateway_executor.arn
 }
 
 # Domain name and mapping
 resource "aws_api_gateway_domain_name" "rvc" {
-  domain_name     = var.domain_name
+  domain_name              = var.domain_name
   regional_certificate_arn = data.aws_acm_certificate.domain_cert.arn
   endpoint_configuration {
     types = ["REGIONAL"]
@@ -96,7 +96,7 @@ resource "aws_api_gateway_base_path_mapping" "rvc" {
 # Deployment and stage
 resource "aws_api_gateway_deployment" "rvc" {
   rest_api_id = aws_api_gateway_rest_api.rvc.id
-  
+
   triggers = {
     redeployment = sha1(jsonencode([
       aws_api_gateway_resource.rapids.id,
@@ -111,8 +111,8 @@ resource "aws_api_gateway_deployment" "rvc" {
 
 resource "aws_api_gateway_stage" "rvc" {
   deployment_id = aws_api_gateway_deployment.rvc.id
-  rest_api_id  = aws_api_gateway_rest_api.rvc.id
-  stage_name   = "prod"
+  rest_api_id   = aws_api_gateway_rest_api.rvc.id
+  stage_name    = "prod"
 }
 
 data "aws_acm_certificate" "domain_cert" {
