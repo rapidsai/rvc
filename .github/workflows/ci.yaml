@@ -39,6 +39,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Publish release
+        if: github.ref == 'refs/heads/main'
+        run: |
+          curl -X PATCH \
+          -H 'Accept: application/vnd.github.v3+json' \
+          -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --url https://api.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }} \
+          -d '{"draft":false}' \
+          --fail
+
       - name: Setup golang
         uses: actions/setup-go@v5
         with:
