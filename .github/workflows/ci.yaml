@@ -1,4 +1,4 @@
-name: deploy-rvc-terraform
+name: deploy-rvc
 
 on:
   pull_request:
