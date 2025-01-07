@@ -7,7 +7,7 @@ build: test build_serverless build_cli
 
 build_serverless:
 	@mkdir -p bin
-	GOARCH=amd64 GOOS=linux go build -mod=vendor -ldflags=$(LDFLAGS) -o bin/rvc_serverless ./cmd/rvc_serverless/...
+	GOARCH=amd64 GOOS=linux go build -mod=vendor -ldflags=$(LDFLAGS) -o bin/bootstrap ./cmd/rvc_serverless/...
 
 build_cli:
 	@mkdir -p bin
