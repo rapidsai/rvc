@@ -1,7 +1,7 @@
 variable "domain_name" {
   description = "Custom domain name"
   type        = string
-  default     = "version-tf.gpuci.io"
+  default     = "version.gpuci.io"
 }
 
 variable "certificate_name" {
