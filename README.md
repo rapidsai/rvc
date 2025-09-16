@@ -1,12 +1,21 @@
 # rvc
 
 `rvc` (_RAPIDS version converter_) is a tool built with Golang that automatically
-convert a `RAPIDS` version (CalVer) to a `ucx-py` version (SemVer) and vice versa.
+convert a `RAPIDS` version (CalVer) to a `ucxx` version (SemVer) and vice versa.
+
+Note that in RAPIDS 25.10 the UCX-Py project was discontinued and archived.
+However, for practical reasons we decided to maintain links, request names and
+internal names, such as functions, still referring UCX-Py, such as in the URL
+(see [AWS Lambda instance](#aws-lambda-instance)). This is beneficial from a
+maintenance standpoint by avoiding the need to review all uses and rename them
+all, which is not a strict requirement given these names are not user-facing.
+Nevertheless, the current purpose for this repository is to support the
+[UCXX](https://github.com/rapidsai/ucxx) project that superseded UCX-Py.
 
 ## Motivation
 
 In June 2021, RAPIDS moved from a SemVer versioning to a CalVer versioning.
-As `ucx-py` is expected to be upstreamd to `ucx`, it is not possible to adopt
+As `ucxx` is expected to be upstreamed to `ucx`, it is not possible to adopt
 a CalVer versioning for it, as the versions would have been greater than the
 current `ucx` version. `rvc` is designed to ease the conversion between both
 versioning.
@@ -29,19 +38,19 @@ GitHub Action for more details.
 `rvc` is deployed at this endpoint: https://version.gpuci.io
 
 Two different routes are exposed:
-  - https://version.gpuci.io/ucx-py/{version}: Converts a `ucx-py` version to a `RAPIDS` version
-  - https://version.gpuci.io/rapids/{version}: Converts a `RAPIDS` version to a `ucx-py` version
+  - https://version.gpuci.io/ucx-py/{version}: Converts a `ucxx` version to a `RAPIDS` version
+  - https://version.gpuci.io/rapids/{version}: Converts a `RAPIDS` version to a `ucxx` version
 
 Examples:
 ```sh
-$ RAPIDS_VER=$(curl -sL https://version.gpuci.io/ucx-py/0.22)
+$ RAPIDS_VER=$(curl -sL https://version.gpuci.io/ucx-py/0.46)
 $ echo "${RAPIDS_VER}"
-21.10
+25.10
 ```
 ```sh
-$ UCX_PY_VER=$(curl -sL https://version.gpuci.io/rapids/21.12)
-$ echo "${UCX_PY_VER}"
-0.23
+$ UCXX_VER=$(curl -sL https://version.gpuci.io/rapids/25.10)
+$ echo "${UCX_VER}"
+0.46
 ```
 
 ### CLI binary
@@ -72,12 +81,12 @@ Usage of rvc:
 
 Examples:
 ```sh
-$ rvc -rapids 21.12
-0.23
+$ rvc -rapids 25.10
+0.46
 ```
 ```sh
-$ rvc -ucx-py 0.22
-21.10
+$ rvc -ucx-py 0.56
+25.10
 ```
 
 ## Contributing
